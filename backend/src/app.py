@@ -3,13 +3,11 @@ from flask_cors import CORS
 from car_rental import Car_Rental
 
 app = Flask(__name__)
-car_rental = Car_Rental("car_rental:")
 CORS(app)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
-    cars = car_rental.load_all_cars()
-    data = {"message": "Hello from Flask!", "all cars": cars}
+    data = {"message": "Hello from Flask!"}
     return jsonify(data)
 
 
