@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <a href="/"> Go Back To Main Menu</a>  <br>     <br>
+        <h1>Weekly Rental Report</h1>
+        <h2>{{ report_title  }}</h2>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>Rental ID</th><th>Number of Weeks</th><th>Start Date</th><th>Return Date</th></tr>
+            {% for weekly in weeklys  %}
+                <tr>
+                    <td style="text-align: center;">{{ weekly.rentalid }}</td>
+                    <td style="text-align: center;">{{ weekly.noofweeks }}</td>
+                    <td style="text-align: center;">{{ weekly.startdate }}</td>
+                    <td style="text-align: center;">{{ weekly.returndate }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+        <br>
+        <table style="margin: auto;width:1000px;" class="classForm">
+            <tr><th>Rental ID</th><th>Weekly Rate</th><th>Daily Rate</th><th>Amount Due</th><th>Type</th><th>Customer ID Number</th><th>Vehicle ID Number</th></tr>
+            {% for rental in rentals  %}
+                <tr>
+                    <td style="text-align: center;">{{ rental.rentalid }}</td>
+                    <td style="text-align: center;">${{ rental.weeklyrate }}</td>
+                    <td style="text-align: center;">${{ rental.dailyrate }}</td>
+                    <td style="text-align: center;">${{ rental.amtdue }}</td>
+                    <td style="text-align: center;">{{ rental.rtype }}</td>
+                    <td style="text-align: center;">{{ rental.idno }}</td>
+                    <td style="text-align: center;">{{ rental.vehicleid }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <table style="margin: auto;width:1000px;" class="classForm">
+            <tr><th>Customer ID</th><th>Name</th><th>Phone</th></tr>
+            {% for customer in customers  %}
+                <tr>
+                    <td style="text-align: center;">{{ customer.id }}</td>
+                    <td style="text-align: center;">{{ customer.name }}</td>
+                    <td style="text-align: center;">{{ customer.phone }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>VehicleID</th><th>Year</th><th>Model</th><th>Availability(1=yes, 0=no)</th><th>Type</th><th>Daily Rate</th><th>Weekly Rate</th></tr>
+            {% for car in cars  %}
+                <tr>
+                    <td style="text-align: center;">{{ car.vehicleid }}</td>
+                    <td style="text-align: center;">{{ car.year }}</td>
+                    <td style="text-align: center;">{{ car.model }}</td>
+                    <td style="text-align: center;">{{ car.isavailable }}</td>
+                    <td style="text-align: center;">{{ car.ctype }}</td>
+                    <td style="text-align: center;">${{ car.dailyrate }}</td>
+                    <td style="text-align: center;">${{ car.weeklyrate }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

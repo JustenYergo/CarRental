@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Main Menu</h1>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>Customers Menu</th></tr>
+            <tr><td style="text-align: center"><a href='/customers_all'>Print All Customers Information</a></td></tr>
+            <tr><td style="text-align: center"><a href='/customers_search'>Search Customers by ID</a></td></tr>
+            <tr><td style="text-align: center"><a href='/customer_update'>Update Customers by ID</a></td></tr>
+        </table>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>Car Menu</th></tr>
+            <tr><td style="text-align: center"><a href='/cars_all'>Print All Cars Information</a></td></tr>
+            <tr><td style="text-align: center"><a href='/car_search'>Search Cars by Model</a></td></tr>
+            <tr><td style="text-align: center"><a href='/cars_available'>Print All Available Cars</a></td></tr>
+            <tr><td style="text-align: center"><a href='/car_update'>Update Cars by Vehicle ID</a></td></tr>
+        </table>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>Rental</th></tr>
+            <tr><td style="text-align: center"><a href='/rentals_all'>Print All Rental Information</a></td></tr>
+            <tr><td style="text-align: center"><a href='/daily_all'>Print Daily Rental Information</a></td></tr>
+            <tr><td style="text-align: center"><a href='/weekly_all'>Print Weekly Rental Information</a></td></tr>
+        </table>
+    </div>
+    <br><br>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <a href="/"> Go Back To Main Menu</a>  <br>     <br>
+        <h1>Car Report</h1>
+        <h2>{{ report_title  }}</h2>
+        <br>
+        <table style="margin: auto;width:550px;" class="classForm">
+            <tr><th>VehicleID</th><th>Year</th><th>Model</th><th>Availability(1=yes, 0=no)</th><th>Type</th><th>Daily Rate</th><th>Weekly Rate</th></tr>
+            {% for car in cars  %}
+                <tr>
+                    <td style="text-align: center;">{{ car.vehicleid }}</td>
+                    <td style="text-align: center;">{{ car.year }}</td>
+                    <td style="text-align: center;">{{ car.model }}</td>
+                    <td style="text-align: center;">{{ car.isavailable }}</td>
+                    <td style="text-align: center;">{{ car.ctype }}</td>
+                    <td style="text-align: center;">${{ car.dailyrate }}</td>
+                    <td style="text-align: center;">${{ car.weeklyrate }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

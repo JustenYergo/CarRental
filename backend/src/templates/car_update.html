@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <a href="/"> Go Back To Main Menu</a>  <br>     <br>
+        <h1>Car Update</h1>
+        <h2>Update Car by Vehicle ID</h2>
+        <br>
+        <form action="/car_update">
+        <table style="margin: auto; width:450px;" class="classForm">
+            <tr>
+                <th style="width: 150px;">Existing Vehicle ID</th>
+                <td style="text-align: center"><input type="text" name="VehicleID" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Year</th>
+                <td style="text-align: center"><input type="text" name="CarYear" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Model</th>
+                <td style="text-align: center"><input type="text" name="Model" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Availability (1=yes, 0=no)</th>
+                <td style="text-align: center"><input type="text" name="IsAvailable" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Type</th>
+                <td style="text-align: center"><input list="CarType" name="CarType" style="width: 90%;">
+                    <datalist id="CarType">
+                        <option value="Truck"></option>
+                        <option value="Van"></option>
+                        <option value="SUV"></option>
+                        <option value="Large"></option>
+                        <option value="Medium"></option>
+                        <option value="Compact"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Daily Rate</th>
+                <td style="text-align: center"><input type="text" name="DailyRate" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Weekly Rate</th>
+                <td style="text-align: center"><input type="text" name="WeeklyRate" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center"><input type="submit" value="Update" style="width: 150px;"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+{% endblock %}

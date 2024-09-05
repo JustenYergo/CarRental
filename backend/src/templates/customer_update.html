@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <a href="/"> Go Back To Main Menu</a>  <br>     <br>
+        <h1>Customer Update</h1>
+        <h2>Update Customer by ID</h2>
+        <br>
+        <form action="/customer_update">
+        <table style="margin: auto; width:450px;" class="classForm">
+            <tr>
+                <th style="width: 150px;">Existing Customer ID</th>
+                <td style="text-align: center"><input type="text" name="idNO" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Name</th>
+                <td style="text-align: center"><input type="text" name="name" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <th style="width: 150px;">Update Phone</th>
+                <td style="text-align: center"><input type="text" name="phone" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center"><input type="submit" value="Update" style="width: 150px;"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+{% endblock %}

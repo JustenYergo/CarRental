@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <a href="/"> Go Back To Main Menu</a>  <br>     <br>
+        <h1>Student Search</h1>
+        <h2>Search Student by Name</h2>
+        <br>
+        <form action="/students_search">
+        <table style="margin: auto; width:450px;" class="classForm">
+            <tr>
+                <th style="width: 150px;">Name</th>
+                <td style="text-align: center"><input type="text" id="name" name="name" style="width: 90%;"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center"><input type="submit" value="Search" style="width: 150px;"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+{% endblock %}
