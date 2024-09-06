@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 class Car:
     def __init__(self, vehicleid: int, year: int, model: str, isavailable: int, ctype: str, dailyrate: int,
                  weeklyrate: int):
@@ -215,5 +214,16 @@ class Car:
 
         cursor.close()
         my_db.close()
-        return cars
-
+        return cars  
+      
+    # -----------------------------------------------------------------------------------------------------------------\
+    def to_json(self):
+        return {
+            'vehicleid': self.vehicleid,
+            'year': self.year,
+            'model': self.model,
+            'isavailable': self.isavailable,
+            'ctype': self.ctype,
+            'dailyrate': self.dailyrate,
+            'weeklyrate': self.weeklyrate
+        }

@@ -50,7 +50,8 @@ class Car_Rental:
 
     # #################### CAR BLOCK ####################
     def load_all_cars(self):
-        return Car.load_all(self.DB)
+        cars = Car.load_all(self.DB)
+        return [car.to_json() for car in cars]
 
     def load_cars_by_model(self, model: str):
         return Car.load_all_by_model(self.DB, model)
