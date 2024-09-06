@@ -2,11 +2,10 @@
     <span><mat-icon>car_rental</mat-icon>Car Rental</span>
 
     <div class="spacer"></div>
-    <a mat-button routerLink="home" style="color: #c30010;">Home</a>
-    <a mat-button style="color: #c30010;">Reservations</a>
-    <a mat-button style="color: #c30010;">Vehicles</a>
-    <a mat-button style="color: #c30010;">Locations</a>
-    <a mat-button style="color: #c30010;">About Us</a>
+    <a mat-button [routerLink]="['/home']" style="color: #c30010;">Home</a>
+    <a mat-button [routerLink]="['/vehicles']" style="color: #c30010;">Vehicles</a>
+    <a mat-button [routerLink]="['/locations']" style="color: #c30010;">Locations</a>
+    <a mat-button [routerLink]="['/aboutus']" style="color: #c30010;">About Us</a>
     
     <a mat-flat-button 
         style="background-color:#c30010;

@@ -4,7 +4,8 @@ import { AppComponent } from './app/app.component';
 import { CarService } from "./app/service/car.service";
 import { ApiService } from "./app/service/api.service";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AppRouteModule } from './app/app.routes';
+import { RouterModule } from '@angular/router';
+import { routes } from './app/app.routes';
 
 enableProdMode();
 
@@ -13,8 +14,6 @@ bootstrapApplication(AppComponent, {
     CarService,
     ApiService,
     provideAnimationsAsync(),
-    provideAnimationsAsync(),
-    provideAnimationsAsync(),
-    importProvidersFrom(AppRouteModule)
+    importProvidersFrom(RouterModule.forRoot(routes))
   ]
-}).catch((err: unknown) => console.error(err));
+});
