@@ -1,3 +1,26 @@
-<div>
-    <h1>{{ data }}</h1>
+<div class="car-list-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Vehicle ID</th>
+                <th>Year</th>
+                <th>Model</th>
+                <th>Available</th>
+                <th>Type</th>
+                <th>Daily Rate</th>
+                <th>Weekly Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars">
+                <td>{{ car.vehicleid }}</td>
+                <td>{{ car.year }}</td>
+                <td>{{ car.model }}</td>
+                <td>{{ car.isavailable ? 'Yes' : 'No' }}</td>
+                <td>{{ car.ctype }}</td>
+                <td>${{ car.dailyrate }}</td>
+                <td>${{ car.weeklyrate }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
