@@ -1,1 +1,19 @@
-<img src="assets/background.png" alt="background" style="width: 100%; height: auto;">
+<div class="background-container">
+    <mat-card class="centered-card">
+      <mat-card-header class="h1">Car rentals near you</mat-card-header>
+      <mat-card-content class="content">Browse vehicles available in your area! From electric cars and sedans to SUVs, you’ll find vehicles fit for solo travelers and groups with up to 7 people. Enter your time and location details (like New York Stewart International Airport) to find car rentals near you.</mat-card-content>
+      <mat-card-header class="h2">Find rentals near</mat-card-header>
+      <form class="form">
+        <mat-form-field class="input">
+            <mat-label>Pickup location</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field class="date">
+            <mat-label>Start date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </mat-card>
+  </div>

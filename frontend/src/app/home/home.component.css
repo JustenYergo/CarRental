@@ -1,0 +1,45 @@
+.background-container {
+    background-image: url('/background.png');
+    background-size: 100% 100%;
+    height: 66vh; /* adjust the height to match the image height */
+    position: relative;
+  }
+  
+  .centered-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .h1 {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 500px;
+  }
+  .content {
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-right: 25px;
+  }
+  .h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .form {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .input {
+    width: 300px;
+    margin-left: 50px;
+  }
+  .date {
+    width: 150px;
+    margin-left: 10px;
+  }
