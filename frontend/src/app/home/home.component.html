@@ -2,18 +2,118 @@
     <mat-card class="centered-card">
       <mat-card-header class="h1">Car rentals near you</mat-card-header>
       <mat-card-content class="content">Browse vehicles available in your area! From electric cars and sedans to SUVs, you’ll find vehicles fit for solo travelers and groups with up to 7 people. Enter your time and location details (like New York Stewart International Airport) to find car rentals near you.</mat-card-content>
-      <mat-card-header class="h2">Find rentals near</mat-card-header>
+      
+      <div class="header-container">
+        <mat-card-header class="h2">Find rentals near</mat-card-header>
+        <mat-card-header class="h2">Return</mat-card-header>
+      </div>
+      
       <form class="form">
         <mat-form-field class="input">
             <mat-label>Pickup location</mat-label>
             <input matInput>
         </mat-form-field>
+        
         <mat-form-field class="date">
             <mat-label>Start date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
+        
+        <mat-form-field class="time">
+          <mat-label>Time</mat-label>
+          <mat-select>
+            @for (time of times; track time) {
+              <mat-option [value]="time.id">{{ time.time }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="date2">
+          <mat-label>Return date</mat-label>
+          <input matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="time2">
+          <mat-label>Time</mat-label>
+          <mat-select>
+            @for (time of times; track time) {
+              <mat-option [value]="time.id">{{ time.time }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      
       </form>
+      <button mat-flat-button class="button">Search for rental cars</button>
     </mat-card>
   </div>
+  
+  <div>
+    <h1 class="title">Why rent a car with us?</h1>
+  </div>
+  <div class="grid-container">
+    <mat-grid-list cols="3" class="centered-grid">
+      
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <mat-icon class="mat-icon-lg">price_check</mat-icon>
+          <h2 class="grid_h2">Competitive Pricing, Flexible Options</h2>
+          <p class="grid_p">Our car rental service offers some of the most competitive pricing in the market, ensuring you get excellent value for your money. We provide a variety of flexible rental plans, from daily and weekly options to long-term rentals. Whether you need a vehicle for a quick trip around the city or an extended road journey, we have the right plan to suit your needs, all while staying within your budget.</p>
+        </div>
+      </mat-grid-tile>
+      
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <mat-icon class="mat-icon-lg">all_inclusive</mat-icon>
+          <h2 class="grid_h2">Top-Notch Customer Service</h2>
+          <p class="grid_p">We are dedicated to delivering exceptional customer service, making your rental experience as smooth and stress-free as possible. Our easy-to-use online booking system allows you to reserve your car in minutes, and our 24/7 customer support is always available to assist with any questions or concerns. With flexible pick-up and drop-off locations, renting a car has never been more convenient.</p>
+        </div>
+      </mat-grid-tile>
+      
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <mat-icon class="mat-icon-lg">car_repair</mat-icon>
+          <h2 class="grid_h2">Well-Maintained, Modern Fleet</h2>
+          <p class="grid_p">We take pride in offering a fleet of modern, well-maintained vehicles that are reliable and safe. Our cars are regularly serviced and thoroughly cleaned to ensure they are in optimal condition for your journey. From fuel-efficient compact cars to spacious SUVs, our diverse fleet is equipped with the latest features to ensure you have a comfortable and enjoyable drive.</p>
+        </div>
+      </mat-grid-tile>
+    
+    </mat-grid-list>
+  </div>
+  
+  <div>
+    <h1 class="title">How to book a rental car with us</h1>
+  </div>
+  <div>
+    <div class="timeline-container">
+      
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h2 class="grid_h2">Reserve your rental car</h2>
+          <p class="grid_p">Start by visiting our website, where you can easily browse through our diverse selection of vehicles. Once you've found the ideal car for your trip, simply choose your rental dates, select your preferred pick-up location, and add any extra options you might need. Complete your reservation quickly and securely, all in just a few easy steps.</p>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h2 class="grid_h2">Pick up your rental car</h2>
+          <p class="grid_p">On the scheduled day, head to the pick-up location you selected during the reservation. Our friendly staff will have your vehicle prepped and ready for you. After a brief check-in process, including reviewing your rental agreement and completing any necessary paperwork, you'll be ready to hit the road.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h2 class="grid_h2">Drop off your rental car</h2>
+          <p class="grid_p">At the end of your rental period, return the car to the designated drop-off location. Our team will conduct a quick inspection of the vehicle, and you'll be all set to complete the rental process. It's designed to be a straightforward and hassle-free experience.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
