@@ -6,4 +6,5 @@ export interface Car {
     ctype: string;
     dailyrate: number;
     weeklyrate: number;
+    location: string;
   }

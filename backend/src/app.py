@@ -9,10 +9,15 @@ CORS(app)
 print(car_rental)
 
 @app.route('/api/cars', methods=['GET'])
-def get_data():
+def get_cars():
     cars = car_rental.load_all_cars()
     return jsonify(cars)
 
+@app.route('/api/cars/location', methods=['GET'])
+def get_cars_location():
+    location = request.args.get('location')
+    cars = car_rental.load_cars_by_location(location)
+    return jsonify(cars)
 
 # # ----------------------------------------------------------------------------------------------------------------------
 # @app.route('/')

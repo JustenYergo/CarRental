@@ -1,1 +1,65 @@
-<p>reservations works!</p>
+<div class="container">
+    <mat-grid-list cols="9" class="centered-grid">
+        <mat-grid-tile [colspan]="2">
+            <div class="mat-grid-tile-content">
+                <mat-card class="card-content">
+                    <mat-card-header class="h2">Find rentals near</mat-card-header>
+                    <form>
+                        <mat-form-field class="location">
+                            <mat-label>Pickup Location</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+
+                        <mat-form-field class="date">
+                            <mat-label>Start date</mat-label>
+                            <input matInput [matDatepicker]="picker2">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="time">
+                            <mat-label>Time</mat-label>
+                            <mat-select>
+                                @for (time of times; track time) {
+                                    <mat-option [value]="time.id"> {{ time.time }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="date">
+                            <mat-label>Return date</mat-label>
+                            <input matInput [matDatepicker]="picker1">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="time">
+                            <mat-label>Time</mat-label>
+                            <mat-select>
+                                @for (time of times; track time) {
+                                    <mat-option [value]="time.id"> {{ time.time }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                    <button mat-flat-button class="button">Search</button>
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4">
+            2
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3">
+            3
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+
+<!-- <form>
+    <label for="location">Enter location:</label>
+    <input type="text" id="location" name="location" [(ngModel)]="location">
+    <button type="submit" (click)="getCarsByLocation()">Get cars</button>
+</form>
+
+<ul>
+    <li *ngFor="let car of cars">{{ car.vehicleid }}</li>
+</ul> -->
