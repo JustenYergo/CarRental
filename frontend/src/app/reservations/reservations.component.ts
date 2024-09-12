@@ -4,16 +4,18 @@ import { NgFor, NgIf } from '@angular/common';
 import { CarLocationService } from '../service/carlocation.service';
 import { Car } from '../interfaces/car.interface';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { ReservationService } from '../service/reservation.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -33,7 +35,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatSelectModule, 
     MatButtonModule, 
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
   ],
   templateUrl: './reservations.component.html',
   styleUrl: './reservations.component.css',
@@ -62,7 +65,26 @@ export class ReservationsComponent {
     { id: 17, time: '5:00 PM' }
   ];
 
-  constructor(private carLocationService: CarLocationService) { }
+  reservationForm!: FormGroup;
+  reservationData: any; // declare the reservationData property
+
+  constructor(private carLocationService: CarLocationService, private reservationService: ReservationService) { }
+
+  ngOnInit(): void {
+    this.reservationData = this.reservationService.getReservationData();
+    console.log(this.reservationData);
+
+    this.reservationForm = new FormGroup({
+      pickupLocation: new FormControl(''),
+      startDate: new FormControl(''),
+      startTime: new FormControl(''),
+      returnDate: new FormControl(''),
+      returnTime: new FormControl('')
+    });
+
+    this.reservationForm.patchValue(this.reservationData);
+  }
+
 
   public getCarsByLocation(): void {
     this.carLocationService.getCars(this.location).subscribe((data: Car[]) => {

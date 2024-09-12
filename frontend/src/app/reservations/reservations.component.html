@@ -4,21 +4,21 @@
             <div class="mat-grid-tile-content">
                 <mat-card class="card-content">
                     <mat-card-header class="h2">Find rentals near</mat-card-header>
-                    <form>
+                    <form [formGroup]="reservationForm">
                         <mat-form-field class="location">
                             <mat-label>Pickup Location</mat-label>
-                            <input matInput>
+                            <input matInput [formControlName]="'pickupLocation'">
                         </mat-form-field>
 
                         <mat-form-field class="date">
                             <mat-label>Start date</mat-label>
-                            <input matInput [matDatepicker]="picker2">
+                            <input matInput [matDatepicker]="picker2" [formControlName]="'startDate'">
                             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field class="time">
                             <mat-label>Time</mat-label>
-                            <mat-select>
+                            <mat-select [formControlName]="'startTime'">
                                 @for (time of times; track time) {
                                     <mat-option [value]="time.id"> {{ time.time }}</mat-option>
                                 }
@@ -27,13 +27,13 @@
 
                         <mat-form-field class="date">
                             <mat-label>Return date</mat-label>
-                            <input matInput [matDatepicker]="picker1">
+                            <input matInput [matDatepicker]="picker1" [formControlName]="'returnDate'">
                             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field class="time">
                             <mat-label>Time</mat-label>
-                            <mat-select>
+                            <mat-select [formControlName]="'returnTime'">
                                 @for (time of times; track time) {
                                     <mat-option [value]="time.id"> {{ time.time }}</mat-option>
                                 }
@@ -44,9 +44,21 @@
                 </mat-card>
             </div>
         </mat-grid-tile>
+        
         <mat-grid-tile [colspan]="4">
-            2
+            <div class="mat-grid-tile-content">
+                <h1 class="h1">Choose a car</h1>
+                <button mat-raised-button>Price</button>
+                <button mat-raised-button>Model</button>
+                <button mat-raised-button>Type</button>
+                <button mat-raised-button disabled>Reset</button>
+                <button mat-raised-button disabled>Apply</button>
+                <mat-card class="card-content">
+                    <mat-card-header>test</mat-card-header>
+                </mat-card>
+            </div>
         </mat-grid-tile>
+        
         <mat-grid-tile [colspan]="3">
             3
         </mat-grid-tile>

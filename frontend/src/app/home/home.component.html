@@ -8,22 +8,22 @@
         <mat-card-header class="h2">Return</mat-card-header>
       </div>
       
-      <form class="form">
+      <form class="form" [formGroup]="form">
         <mat-form-field class="input">
             <mat-label>Pickup location</mat-label>
-            <input matInput>
+            <input matInput [formControlName]="'pickupLocation'">
         </mat-form-field>
         
         <mat-form-field class="date">
             <mat-label>Start date</mat-label>
-            <input matInput [matDatepicker]="picker1">
+            <input matInput [matDatepicker]="picker1" [formControlName]="'startDate'">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         
         <mat-form-field class="time">
           <mat-label>Time</mat-label>
-          <mat-select>
+          <mat-select [formControlName]="'startTime'">
             @for (time of times; track time) {
               <mat-option [value]="time.id">{{ time.time }}</mat-option>
             }
@@ -32,22 +32,21 @@
 
         <mat-form-field class="date2">
           <mat-label>Return date</mat-label>
-          <input matInput [matDatepicker]="picker2">
+          <input matInput [matDatepicker]="picker2" [formControlName]="'returnDate'">
           <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="time2">
           <mat-label>Time</mat-label>
-          <mat-select>
+          <mat-select [formControlName]="'returnTime'">
             @for (time of times; track time) {
               <mat-option [value]="time.id">{{ time.time }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
-      
+        <button mat-flat-button class="button" (click)="sendReservationRequest()">Search for rental cars</button>
       </form>
-      <button mat-flat-button class="button">Search for rental cars</button>
     </mat-card>
   </div>
   

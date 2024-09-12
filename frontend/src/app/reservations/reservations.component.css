@@ -46,3 +46,8 @@ mat-grid-tile {
     background-color: antiquewhite;
     height: 100%
 }
+.h1 {
+    font-size: 2.1rem;
+    font-weight: bold;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

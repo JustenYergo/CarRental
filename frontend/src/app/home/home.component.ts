@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,6 +8,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
+import { ReservationService } from '../service/reservation.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,12 +26,15 @@ import {MatIconModule} from '@angular/material/icon';
     MatSelectModule, 
     MatButtonModule, 
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  form!: FormGroup;
   times = [
     { id: 1, time: '9:00 AM' },
     { id: 2, time: '9:30 AM' },
@@ -48,4 +54,26 @@ export class HomeComponent {
     { id: 16, time: '4:30 PM' },
     { id: 17, time: '5:00 PM' }
   ];
+
+  constructor(private reservationService: ReservationService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      pickupLocation: new FormControl(''),
+      startDate: new FormControl(''),
+      startTime: new FormControl(''),
+      returnDate: new FormControl(''),
+      returnTime: new FormControl('')
+    });
+  }
+
+  sendReservationRequest() {
+    if (this.form.valid) {
+      const formData = this.form.value;
+      this.reservationService.setReservationData(formData);
+      console.log(formData);
+      this.router.navigate(['/reservations']);
+    }
+  }
+
 }
