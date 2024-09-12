@@ -7,7 +7,12 @@
                     <form [formGroup]="reservationForm">
                         <mat-form-field class="location">
                             <mat-label>Pickup Location</mat-label>
-                            <input matInput [formControlName]="'pickupLocation'">
+                            <input matInput [formControlName]="'pickupLocation'" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                @for (option of filteredOptions | async; track option) {
+                                    <mat-option [value]="option">{{ option }}</mat-option>
+                                }
+                            </mat-autocomplete>
                         </mat-form-field>
 
                         <mat-form-field class="date">
@@ -39,8 +44,9 @@
                                 }
                             </mat-select>
                         </mat-form-field>
+
+                        <button mat-flat-button class="button" (click)="getCarsByLocation(reservationForm.get(['pickupLocation'])?.value)">Search</button>
                     </form>
-                    <button mat-flat-button class="button">Search</button>
                 </mat-card>
             </div>
         </mat-grid-tile>
@@ -53,8 +59,9 @@
                 <button mat-raised-button>Type</button>
                 <button mat-raised-button disabled>Reset</button>
                 <button mat-raised-button disabled>Apply</button>
-                <mat-card class="card-content">
-                    <mat-card-header>test</mat-card-header>
+                <mat-card class="card-content" *ngFor="let car of cars">
+                    <mat-card-header>{{ car.ctype }}</mat-card-header>
+                    <mat-card-content>{{ car.year }}, {{ car.make }} {{ car.model }}</mat-card-content>
                 </mat-card>
             </div>
         </mat-grid-tile>

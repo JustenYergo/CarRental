@@ -53,8 +53,8 @@ class Car_Rental:
         cars = Car.load_all(self.DB)
         return [car.to_json() for car in cars]
 
-    def load_cars_by_model(self, model: str):
-        return Car.load_all_by_model(self.DB, model)
+    def load_cars_by_make(self, model: str):
+        return Car.load_all_by_make(self.DB, model)
     
     def load_cars_by_location(self, location: str):
         cars = Car.load_all_by_location(self.DB, location)

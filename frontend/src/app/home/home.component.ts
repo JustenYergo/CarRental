@@ -4,13 +4,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+
 import { Router, RouterModule } from '@angular/router';
 import { ReservationService } from '../service/reservation.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {AsyncPipe} from '@angular/common';
+import { Observable, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CarLocationService } from '../service/carlocation.service';
+import { Car } from '../interfaces/car.interface';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -28,10 +37,14 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
     MatGridListModule,
     MatIconModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    HttpClientModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+  providers: [CarLocationService]
 })
 export class HomeComponent {
   form!: FormGroup;
@@ -54,8 +67,11 @@ export class HomeComponent {
     { id: 16, time: '4:30 PM' },
     { id: 17, time: '5:00 PM' }
   ];
+  location_options: string[] = ['LaGuardia Airport, NY', 'JFK International Airport, NY', 'Newark Liberty International Airport, NJ']
+  filteredOptions!: Observable<string[]>;
+  cars: Car[] = [];
 
-  constructor(private reservationService: ReservationService, private router: Router) { }
+  constructor(private reservationService: ReservationService, private carLocationService: CarLocationService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -65,13 +81,29 @@ export class HomeComponent {
       returnDate: new FormControl(''),
       returnTime: new FormControl('')
     });
+
+    this.filteredOptions = this.form.controls['pickupLocation'].valueChanges.pipe(
+      startWith(''),
+      map((value: string) => this._filter(value || '')),
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.location_options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  public getCarsByLocation(location: string): void {
+    this.carLocationService.getCars(location).subscribe((data: Car[]) => {
+      this.cars = data;
+    });
   }
 
   sendReservationRequest() {
     if (this.form.valid) {
       const formData = this.form.value;
       this.reservationService.setReservationData(formData);
-      console.log(formData);
       this.router.navigate(['/reservations']);
     }
   }

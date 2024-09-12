@@ -16,6 +16,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { ReservationService } from '../service/reservation.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {AsyncPipe} from '@angular/common';
+import { Observable, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -36,7 +40,9 @@ import { FormGroup, FormControl } from '@angular/forms';
     MatButtonModule, 
     MatGridListModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    AsyncPipe
   ],
   templateUrl: './reservations.component.html',
   styleUrl: './reservations.component.css',
@@ -64,15 +70,16 @@ export class ReservationsComponent {
     { id: 16, time: '4:30 PM' },
     { id: 17, time: '5:00 PM' }
   ];
-
+  location_options: string[] = ['LaGuardia Airport, NY', 'JFK International Airport, NY', 'Newark Liberty International Airport, NJ']
+  filteredOptions!: Observable<string[]>;
   reservationForm!: FormGroup;
-  reservationData: any; // declare the reservationData property
+  reservationData: any;
+  
 
   constructor(private carLocationService: CarLocationService, private reservationService: ReservationService) { }
 
   ngOnInit(): void {
     this.reservationData = this.reservationService.getReservationData();
-    console.log(this.reservationData);
 
     this.reservationForm = new FormGroup({
       pickupLocation: new FormControl(''),
@@ -83,11 +90,28 @@ export class ReservationsComponent {
     });
 
     this.reservationForm.patchValue(this.reservationData);
+
+    this.filteredOptions = this.reservationForm.controls['pickupLocation'].valueChanges.pipe(
+      startWith(''),
+      map((value: string) => this._filter(value || '')),
+    );
+
+    //console.log(this.reservationData.pickupLocation)
+
+    this.carLocationService.getCars(this.reservationData.pickupLocation).subscribe((data: Car[]) => {
+      this.cars = data;
+    });
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.location_options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 
-  public getCarsByLocation(): void {
-    this.carLocationService.getCars(this.location).subscribe((data: Car[]) => {
+  public getCarsByLocation(location: string): void {
+    this.carLocationService.getCars(location).subscribe((data: Car[]) => {
       this.cars = data;
     });
   }

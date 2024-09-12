@@ -7,4 +7,5 @@ export interface Car {
     dailyrate: number;
     weeklyrate: number;
     location: string;
+    make: string;
   }

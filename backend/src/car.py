@@ -1,19 +1,20 @@
 import mysql.connector
 
 class Car:
-    def __init__(self, vehicleid: int, year: int, model: str, isavailable: int, ctype: str, dailyrate: int,
-                 weeklyrate: int, location: str):
+    def __init__(self, vehicleid: int, year: int, make: str, isavailable: int, ctype: str, dailyrate: int,
+                 weeklyrate: int, location: str, model: str):
         self.__vehicleid = vehicleid
         self.__year = year
-        self.__model = model
+        self.__make = make
         self.__isavailable = isavailable
         self.__ctype = ctype
         self.__dailyrate = dailyrate
         self.__weeklyrate = weeklyrate
         self.__location = location
+        self.__model = model
 
     def __str__(self):
-        return f"""{self.vehicleid:<20} - {self.year:^10} - {self.model:<50} - {self.isavailable:<20} - {self.ctype:<50} - {self.dailyrate:<50} - {self.weeklyrate:<50} - {self.location:<255}"""
+        return f"""{self.vehicleid:<20} - {self.year:^10} - {self.make:<50} - {self.isavailable:<20} - {self.ctype:<50} - {self.dailyrate:<50} - {self.weeklyrate:<50} - {self.location:<255} - {self.model:<255}"""
 
     @property
     def vehicleid(self):
@@ -24,8 +25,8 @@ class Car:
         return self.__year
 
     @property
-    def model(self):
-        return self.__model
+    def make(self):
+        return self.__make
 
     @property
     def isavailable(self):
@@ -46,6 +47,10 @@ class Car:
     @property
     def location(self):
         return self.__location
+    
+    @property
+    def model(self):
+        return self.__model
 
     # #################### LOADING DATA FROM DATABASE ####################
     # -----------------------------------------------------------------------------------------------------------------
@@ -56,17 +61,18 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car WHERE VehicleID = %s",
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car WHERE VehicleID = %s",
             (self.__vehicleid,))
         for row in cursor.fetchall():
             self.__vehicleid = row[0]
             self.__year = row[1]
-            self.__model = row[2]
+            self.__make = row[2]
             self.__isavailable = row[3]
             self.__ctype = row[4]
             self.__dailyrate = row[5]
             self.__weeklyrate = row[6]
             self.__location = row[7]
+            self.__model = row[8]
 
         cursor.close()
         my_db.close()
@@ -81,35 +87,35 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car")
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car")
         for row in cursor.fetchall():
             cars.append(
-                Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                    weeklyrate=row[6], location=row[7]))
+                Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                    weeklyrate=row[6], location=row[7], model=row[8]))
 
         cursor.close()
         my_db.close()
         return cars
 
     # -----------------------------------------------------------------------------------------------------------------
-    def load_all_by_model(db_config: dict, model: str) -> []:
-        cars_by_model = []
+    def load_all_by_make(db_config: dict, make: str) -> []:
+        cars_by_make = []
         my_db = mysql.connector.connect(host=db_config["hostname"], port=db_config["port"],
                                         user=db_config["user"], password=db_config["passwd"],
                                         database=db_config["database"])
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car WHERE upper(Model) like %s",
-            (model,))
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car WHERE upper(Model) like %s",
+            (make,))
         for row in cursor.fetchall():
-            car = (Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                    weeklyrate=row[6], location=row[7]))
+            car = (Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                    weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
-            cars_by_model.append(car)
+            cars_by_make.append(car)
         cursor.close()
         my_db.close()
-        return cars_by_model
+        return cars_by_make
     
     # -----------------------------------------------------------------------------------------------------------------
     def load_all_by_location(db_config: dict, location: str) -> []:
@@ -120,11 +126,11 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car WHERE Location like %s",
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car WHERE Location like %s",
             (location,))
         for row in cursor.fetchall():
-            car = (Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                    weeklyrate=row[6], location=row[7]))
+            car = (Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                    weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars_by_location.append(car)
         cursor.close()
@@ -141,10 +147,10 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car WHERE isAvailable like 1")
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car WHERE isAvailable like 1")
         for row in cursor.fetchall():
-            car = (Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                    weeklyrate=row[6], location=row[7]))
+            car = (Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                    weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars_available.append(car)
         cursor.close()
@@ -161,10 +167,10 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-            "SELECT A.VehicleID, A.CarYear, A.Model, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate A.Location FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID)")
+            "SELECT A.VehicleID, A.CarYear, A.Make, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate A.Location, A.Model FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID)")
         for row in cursor.fetchall():
-            car = (Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                       weeklyrate=row[6], location=row[7]))
+            car = (Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                       weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars_by_rental.append(car)
         cursor.close()
@@ -180,10 +186,10 @@ class Car:
                                         database=db_config["database"])
 
         cursor = my_db.cursor()
-        cursor.execute("SELECT A.VehicleID, A.CarYear, A.Model, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate, A.Location FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID AND RentalType LIKE 'Daily')")
+        cursor.execute("SELECT A.VehicleID, A.CarYear, A.Make, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate, A.Location, A.Model FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID AND RentalType LIKE 'Daily')")
         for row in cursor.fetchall():
-            car = (Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                       weeklyrate=row[6], location=row[7]))
+            car = (Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                       weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars_by_daily.append(car)
         cursor.close()
@@ -200,11 +206,11 @@ class Car:
 
         cursor = my_db.cursor()
         cursor.execute(
-                "SELECT A.VehicleID, A.CarYear, A.Model, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate, A.Location FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID AND RentalType LIKE 'Weekly')")
+                "SELECT A.VehicleID, A.CarYear, A.Make, A.IsAvailable, A.CarType, A.DailyRate, A.WeeklyRate, A.Location, A.Model FROM car_rental.car A WHERE (SELECT B.VehicleID FROM car_rental.rentals B WHERE A.VehicleID like B.VehicleID AND RentalType LIKE 'Weekly')")
         for row in cursor.fetchall():
             car = (
-                    Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                        weeklyrate=row[6], location=row[7]))
+                    Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                        weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars_by_weekly.append(car)
         cursor.close()
@@ -212,7 +218,7 @@ class Car:
         return cars_by_weekly
 
     # -----------------------------------------------------------------------------------------------------------------\
-    def update_cars(db_config: dict, vehicleid: str, year: str, model: str, isavailable: str, ctype: str, dailyrate: str, weeklyrate: str, location: str):
+    def update_cars(db_config: dict, vehicleid: str, year: str, make: str, isavailable: str, ctype: str, dailyrate: str, weeklyrate: str, location: str, model: str):
         cars = []
         vehicleid = int(vehicleid)
         year = int(year)
@@ -224,17 +230,17 @@ class Car:
                                         user=db_config["user"], password=db_config["passwd"],
                                         database=db_config["database"])
         cursor = my_db.cursor()
-        query = """UPDATE car_rental.car SET CarYear = %s, Model = %s, IsAvailable = %s, CarType = %s, DailyRate = %s, WeeklyRate = %s, Location = %s WHERE VehicleID = %s"""
-        input = (year, model, isavailable, ctype, dailyrate, weeklyrate, vehicleid)
+        query = """UPDATE car_rental.car SET CarYear = %s, Make = %s, IsAvailable = %s, CarType = %s, DailyRate = %s, WeeklyRate = %s, Location = %s, Model = %s WHERE VehicleID = %s"""
+        input = (year, make, isavailable, ctype, dailyrate, weeklyrate, vehicleid, location, model)
         cursor.execute(query, input)
         my_db.commit()
 
         cursor.execute(
-            "SELECT VehicleID, CarYear, Model, IsAvailable, CarType, DailyRate, WeeklyRate, Location FROM car_rental.car")
+            "SELECT VehicleID, CarYear, Make, IsAvailable, CarType, DailyRate, WeeklyRate, Location, Model FROM car_rental.car")
         for row in cursor.fetchall():
             car = (
-                Car(vehicleid=row[0], year=row[1], model=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
-                    weeklyrate=row[6], location=row[7]))
+                Car(vehicleid=row[0], year=row[1], make=row[2], isavailable=row[3], ctype=row[4], dailyrate=row[5],
+                    weeklyrate=row[6], location=row[7], model=row[8]))
             car.load(db_config)
             cars.append(car)
 
@@ -247,10 +253,11 @@ class Car:
         return {
             'vehicleid': self.vehicleid,
             'year': self.year,
-            'model': self.model,
+            'make': self.make,
             'isavailable': self.isavailable,
             'ctype': self.ctype,
             'dailyrate': self.dailyrate,
             'weeklyrate': self.weeklyrate,
-            'location': self.location
+            'location': self.location,
+            'model': self.model
         }

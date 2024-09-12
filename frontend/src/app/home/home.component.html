@@ -11,7 +11,12 @@
       <form class="form" [formGroup]="form">
         <mat-form-field class="input">
             <mat-label>Pickup location</mat-label>
-            <input matInput [formControlName]="'pickupLocation'">
+            <input matInput [formControlName]="'pickupLocation'" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-autocomplete>
         </mat-form-field>
         
         <mat-form-field class="date">
