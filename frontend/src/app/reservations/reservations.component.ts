@@ -20,6 +20,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {AsyncPipe} from '@angular/common';
 import { Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LocationsComponent } from '../locations/locations.component';
+import { TIMES, LOCATION_OPTIONS } from '../interfaces/constants';
 
 
 @Component({
@@ -42,7 +44,8 @@ import { map } from 'rxjs/operators';
     MatIconModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    AsyncPipe
+    AsyncPipe,
+    LocationsComponent
   ],
   templateUrl: './reservations.component.html',
   styleUrl: './reservations.component.css',
@@ -51,26 +54,8 @@ import { map } from 'rxjs/operators';
 export class ReservationsComponent {
   cars: Car[] = [];
   location: string = '';
-  times = [
-    { id: 1, time: '9:00 AM' },
-    { id: 2, time: '9:30 AM' },
-    { id: 3, time: '10:00 AM' },
-    { id: 4, time: '10:30 AM' },
-    { id: 5, time: '11:00 AM' },
-    { id: 6, time: '11:30 AM' },
-    { id: 7, time: '12:00 PM' },
-    { id: 8, time: '12:30 PM' },
-    { id: 9, time: '1:00 PM' },
-    { id: 10, time: '1:30 PM' },
-    { id: 11, time: '2:00 PM' },
-    { id: 12, time: '2:30 PM' },
-    { id: 13, time: '3:00 PM' },
-    { id: 14, time: '3:30 PM' },
-    { id: 15, time: '4:00 PM' },
-    { id: 16, time: '4:30 PM' },
-    { id: 17, time: '5:00 PM' }
-  ];
-  location_options: string[] = ['LaGuardia Airport, NY', 'JFK International Airport, NY', 'Newark Liberty International Airport, NJ']
+  times = TIMES;
+  location_options = LOCATION_OPTIONS;
   filteredOptions!: Observable<string[]>;
   reservationForm!: FormGroup;
   reservationData: any;
@@ -106,7 +91,7 @@ export class ReservationsComponent {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.location_options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.location_options.filter(option => option.name.toLowerCase().includes(filterValue)).map(option => option.name);
   }
 
 

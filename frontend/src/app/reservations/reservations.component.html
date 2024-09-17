@@ -51,7 +51,7 @@
             </div>
         </mat-grid-tile>
         
-        <mat-grid-tile [colspan]="4">
+        <mat-grid-tile [colspan]="4" class="scrollable-tile">
             <div class="mat-grid-tile-content">
                 <h1 class="h1">Choose a car</h1>
                 <button mat-raised-button>Price</button>
@@ -59,26 +59,26 @@
                 <button mat-raised-button>Type</button>
                 <button mat-raised-button disabled>Reset</button>
                 <button mat-raised-button disabled>Apply</button>
-                <mat-card class="card-content" *ngFor="let car of cars">
-                    <mat-card-header>{{ car.ctype }}</mat-card-header>
-                    <mat-card-content>{{ car.year }}, {{ car.make }} {{ car.model }}</mat-card-content>
+
+                <mat-card class="car-content" *ngFor="let car of cars">
+                    <img src="/cars/{{car.vehicleid}}.png"/>
+                    <div class="car-details">
+                        <mat-card-header class="car-type">{{ car.ctype }}</mat-card-header>
+                        <mat-card-content class="make-model">{{ car.year }}, {{ car.make }} {{ car.model }}</mat-card-content>
+                        <mat-card-content class="car-location">{{ car.location }}</mat-card-content>
+                    </div>
+                    <div class="price-details">
+                        <mat-card-header class="day-price">${{ car.dailyrate }}/day</mat-card-header>
+                        <mat-card-content>${{ car.weeklyrate }}/week</mat-card-content>
+                    </div>
                 </mat-card>
             </div>
         </mat-grid-tile>
         
         <mat-grid-tile [colspan]="3">
-            3
+            <div class="mat-grid-tile-content">
+                <app-locations [start]="cars[0]?.location"></app-locations>
+            </div>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
-
-
-<!-- <form>
-    <label for="location">Enter location:</label>
-    <input type="text" id="location" name="location" [(ngModel)]="location">
-    <button type="submit" (click)="getCarsByLocation()">Get cars</button>
-</form>
-
-<ul>
-    <li *ngFor="let car of cars">{{ car.vehicleid }}</li>
-</ul> -->

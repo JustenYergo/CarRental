@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    height: 100%;
+    height: 45vh;
     justify-content: center;
     display: flex;
     margin-top: 50px;
@@ -44,11 +44,58 @@
     font-size: 1.02rem;
 }
 mat-grid-tile {
-    background-color: antiquewhite;
     height: 100%
+}
+.scrollable-tile {
+    overflow-y: auto;
+    max-height: 100vh;
 }
 .h1 {
     font-size: 2.1rem;
     font-weight: bold;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+img {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin: 5px;
+}
+.car-content {
+    padding: 20px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+.car-details {
+    margin-left: 20px;
+    flex: 1;
+}
+.car-type {
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin-bottom: 15px;
+}
+.make-model {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.car-location {
+    font-style: italic;
+}
+.price-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin-left: 10px;
+}
+.day-price {
+    font-size: 1rem;
+    font-weight: bold;
+}
+app-locations {
+    width: inherit;
+    height: inherit;
 }
