@@ -20,28 +20,30 @@ import { map } from 'rxjs/operators';
 import { CarLocationService } from '../service/carlocation.service';
 import { Car } from '../interfaces/car.interface';
 import { HttpClientModule } from '@angular/common/http';
+import { AboutusComponent } from "../aboutus/aboutus.component";
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ 
-    MatCardModule, 
-    MatNativeDateModule, 
-    MatDatepickerModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatSelectModule, 
-    MatButtonModule, 
+  imports: [
+    MatCardModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
     MatGridListModule,
     MatIconModule,
     RouterModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     AsyncPipe,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    AboutusComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [CarLocationService]

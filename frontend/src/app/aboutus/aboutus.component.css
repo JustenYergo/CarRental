@@ -1,0 +1,73 @@
+.title {
+    font-size: 2.1rem;
+    font-weight: bold;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin-top: 75px;
+    margin-left: 275px;
+    margin-bottom: 50px;
+  }
+  .grid-container {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    height: 300px;
+  }
+  .centered-grid {
+    width: 130vh;
+  }
+  mat-grid-tile .mat-grid-tile-content {
+    display: block;
+    text-align: left;
+    padding: 25px;
+  }
+  .mat-icon-lg {
+    transform: scale(1.5);
+    margin-bottom: 10px;
+    color: #c30010;
+  }
+  .grid_h2 {
+    font-size: 1.1rem;
+    font-weight: bolder;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  .grid_p {
+    font-size: 1rem;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  .timeline-container {
+    position: relative;
+    padding: 20px 0;
+    width: 130vh;
+    margin: 0 auto;
+  }
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
+  .timeline-marker {
+    width: 10px;
+    height: 10px;
+    background-color: #c30010;
+    border-radius: 50%;
+    position: absolute;
+    left: -19px; /* Adjust this value to control marker position */
+    top: 10px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -15px; /* Aligns with the marker */
+    top: 10px;
+    bottom: -10px;
+    width: 2px;
+    background-color: #c30010;
+  }
+  .timeline-content {
+    margin-left: 30px;
+    padding-right: 350px;
+    margin-bottom: 50px;
+  }
+  .timeline-item:last-child::before {
+    bottom: 30px; /* Prevents the line from extending beyond the last item */
+  }
